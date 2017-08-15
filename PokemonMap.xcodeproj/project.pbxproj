@@ -14,6 +14,11 @@
 		B2D383081F3F714200DBD7B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2D383071F3F714200DBD7B2 /* Assets.xcassets */; };
 		B2D3830B1F3F714200DBD7B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2D383091F3F714200DBD7B2 /* LaunchScreen.storyboard */; };
 		B2D383141F3F717100DBD7B2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D383131F3F717100DBD7B2 /* MapKit.framework */; };
+		B2D383161F40F27400DBD7B2 /* PokemonListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D383151F40F27400DBD7B2 /* PokemonListVC.swift */; };
+		B2D383181F40F4F400DBD7B2 /* CoreDataManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D383171F40F4F400DBD7B2 /* CoreDataManipulator.swift */; };
+		B2D3831A1F42F32100DBD7B2 /* PokemonArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D383191F42F32100DBD7B2 /* PokemonArchive.swift */; };
+		B2D3831C1F4303A500DBD7B2 /* PokeAnnoClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D3831B1F4303A500DBD7B2 /* PokeAnnoClass.swift */; };
+		B2D3831E1F43164600DBD7B2 /* wildPokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D3831D1F43164600DBD7B2 /* wildPokemon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		B2D3830A1F3F714200DBD7B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2D3830C1F3F714200DBD7B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2D383131F3F717100DBD7B2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B2D383151F40F27400DBD7B2 /* PokemonListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonListVC.swift; sourceTree = "<group>"; };
+		B2D383171F40F4F400DBD7B2 /* CoreDataManipulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManipulator.swift; sourceTree = "<group>"; };
+		B2D383191F42F32100DBD7B2 /* PokemonArchive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonArchive.swift; sourceTree = "<group>"; };
+		B2D3831B1F4303A500DBD7B2 /* PokeAnnoClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PokeAnnoClass.swift; path = ../PokeAnnoClass.swift; sourceTree = "<group>"; };
+		B2D3831D1F43164600DBD7B2 /* wildPokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wildPokemon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +72,12 @@
 			children = (
 				B2D382FD1F3F714200DBD7B2 /* AppDelegate.swift */,
 				B2D382FF1F3F714200DBD7B2 /* ViewController.swift */,
+				B2D383151F40F27400DBD7B2 /* PokemonListVC.swift */,
 				B2D383011F3F714200DBD7B2 /* Main.storyboard */,
+				B2D3831D1F43164600DBD7B2 /* wildPokemon.swift */,
+				B2D3831B1F4303A500DBD7B2 /* PokeAnnoClass.swift */,
+				B2D383171F40F4F400DBD7B2 /* CoreDataManipulator.swift */,
+				B2D383191F42F32100DBD7B2 /* PokemonArchive.swift */,
 				B2D383071F3F714200DBD7B2 /* Assets.xcassets */,
 				B2D383091F3F714200DBD7B2 /* LaunchScreen.storyboard */,
 				B2D3830C1F3F714200DBD7B2 /* Info.plist */,
@@ -152,7 +167,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D383161F40F27400DBD7B2 /* PokemonListVC.swift in Sources */,
 				B2D383001F3F714200DBD7B2 /* ViewController.swift in Sources */,
+				B2D3831A1F42F32100DBD7B2 /* PokemonArchive.swift in Sources */,
+				B2D383181F40F4F400DBD7B2 /* CoreDataManipulator.swift in Sources */,
+				B2D3831C1F4303A500DBD7B2 /* PokeAnnoClass.swift in Sources */,
+				B2D3831E1F43164600DBD7B2 /* wildPokemon.swift in Sources */,
 				B2D383061F3F714200DBD7B2 /* PokemonMap.xcdatamodeld in Sources */,
 				B2D382FE1F3F714200DBD7B2 /* AppDelegate.swift in Sources */,
 			);
@@ -320,6 +340,7 @@
 				B2D383111F3F714200DBD7B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -10,12 +10,11 @@ import UIKit
 import Foundation
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate
 {
 
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet weak var supportingViewForButton: UIView!
     
     @IBOutlet weak var updateViewLocation: UIButton!
 
@@ -32,31 +31,44 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        fetchCaughtPokemon()
+        eraseData()
         
         manager.delegate = self
         
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse
         {
+            
+            
             print("\n Current location already authorized.")
             mapView.showsUserLocation = true
             manager.startUpdatingLocation()
+            mapView.delegate = self
             
             Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (timer) in
                 //Spawn a Pokemon
                 
-                print("Inside Timer")
                 
                 if let coord = self.manager.location?.coordinate
                 {
+                    
+                    let PokemonOnSpot = wildPokemon()
+                    
+                    let itsIdentifier = allPokemonIdentifiersList[ Int( arc4random_uniform(UInt32(allPokemonIdentifiersList.count)) ) ]
+                    PokemonOnSpot.itsIdentifier = itsIdentifier
+                    
+                    
+                    let annotation = wildPokemonAnnotation(coord: coord, pokemon: PokemonOnSpot)
+                    
                     let randomLatitude = (Double(arc4random_uniform(200)) - 100) / 10000
                     let randomLongitude = (Double(arc4random_uniform(200)) - 100) / 10000
                     
-                    let annotation = MKPointAnnotation()
                     annotation.coordinate = coord
                     annotation.coordinate.latitude += randomLatitude
                     annotation.coordinate.longitude += randomLongitude
                     self.mapView.addAnnotation(annotation)
                 }
+    
 
             })
             
@@ -85,8 +97,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                        animations: { [weak self] in
                         self?.updateViewLocation.transform = .identity},completion: nil)
         
-
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
@@ -101,7 +111,76 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             manager.stopUpdatingLocation()
         }
     }
+    
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
+    {
+        if annotation is MKUserLocation
+        {
+            let annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+            
+            annoView.image = UIImage(named: "trainer.png")
+            
+            var frame = annoView.frame
+            frame.size.height = 32
+            frame.size.width = 32
+            annoView.frame = frame
+            
+            return annoView
+        }
+        
+            let annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        
+            let pokemon = (annotation as! wildPokemonAnnotation).pokemone
+        
+            annoView.image = UIImage(named: "\(pokemon.itsIdentifier).png")
+            
+            
+            var frame = annoView.frame
+            frame.size.height = 32
+            frame.size.width = 32
+            annoView.frame = frame
+            
+            return annoView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
+    {
+        if view.annotation is MKUserLocation
+        {
+            return
+        }
+        
+        
+        
+        let pokemonName = (view.annotation! as! wildPokemonAnnotation).pokemone.itsIdentifier
 
+        catchPokemon(named: pokemonName)
+        
+        mapView.deselectAnnotation(view.annotation!, animated: true)
+        
+        print("\nAnnotation tapped.")
+        
+        mapView.removeAnnotation(view.annotation!)
+    
+    
+    }
+
+    func catchPokemon(named uncaughtPokemon: String)
+    {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+        let pokemon = Pokemon(context: context)
+        pokemon.identifier = uncaughtPokemon
+        
+        do{
+           try context.save()
+        }catch{
+                
+            }
+        fetchCaughtPokemon()
+        
+    }
 
 
 }
