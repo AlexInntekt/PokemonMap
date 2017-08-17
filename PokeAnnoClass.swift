@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
+//this is nothing more than a customized annotation. Why we needed it insteand the default one, is the fact that it can contains an identifier to the pokemons list:
 class wildPokemonAnnotation : NSObject, MKAnnotation
 {
     var coordinate: CLLocationCoordinate2D

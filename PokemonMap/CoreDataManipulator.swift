@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 
 
-
+//fetch objects from coredata and assign them to the local array:
 func fetchCaughtPokemon()
 {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -26,6 +26,9 @@ func fetchCaughtPokemon()
     }
 }
 
+
+//call this function whenever you want to completely clean the coredata base
+//I remind you that currently the user does not have yet any access to deleting them.
 func eraseData()
 {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -38,6 +41,8 @@ func eraseData()
     
     (UIApplication.shared.delegate as! AppDelegate).saveContext()
     
+    
+    //now update the array:
     fetchCaughtPokemon()
     
 }

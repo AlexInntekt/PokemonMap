@@ -13,6 +13,7 @@ import MapKit
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate
 {
 
+    //this is the map:
     @IBOutlet weak var mapView: MKMapView!
     
     
@@ -31,6 +32,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        //fetch objects from coredata and assign them to the local array:
         fetchCaughtPokemon()
         eraseData()
         
@@ -38,8 +41,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse
         {
-            
-            
             print("\n Current location already authorized.")
             mapView.showsUserLocation = true
             manager.startUpdatingLocation()
@@ -54,6 +55,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                     
                     let PokemonOnSpot = wildPokemon()
                     
+                    //create randomly a pokemon and place it somewhere randomly on the map:
                     let itsIdentifier = allPokemonIdentifiersList[ Int( arc4random_uniform(UInt32(allPokemonIdentifiersList.count)) ) ]
                     PokemonOnSpot.itsIdentifier = itsIdentifier
                     
@@ -73,6 +75,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             })
             
         }else{
+            //request access to the user's current location:
             manager.requestWhenInUseAuthorization()
         }
     
@@ -82,7 +85,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     @IBAction func updateViewLocation(_ sender: Any)
     {
         
-        if let coord = manager.location?.coordinate
+        if (manager.location?.coordinate) != nil
         {
             let region = MKCoordinateRegionMakeWithDistance((manager.location?.coordinate)!, 1000, 1000)
             mapView.setRegion(region, animated: true)
@@ -121,6 +124,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             
             annoView.image = UIImage(named: "trainer.png")
             
+            //create a frame, set its dimensions, and use it to set the size of the pokemons on the map:
             var frame = annoView.frame
             frame.size.height = 32
             frame.size.width = 32
@@ -135,7 +139,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
             annoView.image = UIImage(named: "\(pokemon.itsIdentifier).png")
             
-            
+            //create a frame, set its dimensions, and use it to set the size of the pokemons on the map:
             var frame = annoView.frame
             frame.size.height = 32
             frame.size.width = 32
@@ -144,28 +148,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             return annoView
     }
     
+    //when an annotation is tapped...:
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
     {
+        //this makes sure that the annotation is not the current user location (that would be a hillarious bug),
+        //if it is, then exits the function:
         if view.annotation is MKUserLocation
         {
             return
         }
         
         
-        
         let pokemonName = (view.annotation! as! wildPokemonAnnotation).pokemone.itsIdentifier
 
+        //call the function that will save (with persistent data) the pokemon by an identifier:
         catchPokemon(named: pokemonName)
         
         mapView.deselectAnnotation(view.annotation!, animated: true)
         
         print("\nAnnotation tapped.")
         
+        //remove the pokemon from the map:
         mapView.removeAnnotation(view.annotation!)
     
     
     }
 
+    //by using an identifier as argument in the call, save it object with coredata:
     func catchPokemon(named uncaughtPokemon: String)
     {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

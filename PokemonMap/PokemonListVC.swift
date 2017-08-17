@@ -30,19 +30,21 @@ class PokemonListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
 
 
+    //go back to the map, by dismissing the current viewController:
     @IBOutlet weak var goToMap: UIButton!
     @IBAction func goToMap(_ sender: Any)
     {
         dismiss(animated: true, completion: nil)
     }
     
-    
+    //the number of cells in the table view is equal with the numbers of caught pokemons:
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return caughtpokemon.count
     }
     
     
+    //define each cell:
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = UITableViewCell()
